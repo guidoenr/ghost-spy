@@ -16,8 +16,14 @@ def config_save():
         config.write(configfile)
 
 def config_switch_key(section, key):
-    config.set(section, key, str(not config.get(section, key)))
+    case = ''
+    if config.get(section, key) == 'enabled':
+        case = 'disabled'
+    else:
+        case = 'enabled'
+    config.set(section, key, case)
     config_save()
+    config_load()
 
 def config_get_boolean(section, key):
     return config[section].getboolean(key)
