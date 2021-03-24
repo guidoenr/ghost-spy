@@ -2,19 +2,13 @@ from configuration import configpar as cp
 from common import tools
 import menu_main
 
-menu = """
-\033[93m
----------------------------------------------------------------------------------------
-these are the current options in your configuration, choose one to deactivate or activate:
-\033[0m
+menu ="""modules running:
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+{}~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-{}
-
-    [0] back to main menu
+[0] back to main menu
 
 """
-
-
 
 def load_tools_values():
     cp.config_load()
@@ -33,8 +27,6 @@ def format_tool(tool_key, num):
     else:
         return num + stry + '\033[91m disabled \033[0m'
 
-tls = load_tools_values()
-
 
 valid_options = [0, 1, 2, 3, 4, 5]
 MAIN_MENU = 0
@@ -45,6 +37,7 @@ SYSTEMINFO = 4
 WEBCAM = 5
 
 def show_menu():
+    tools.clean_terminal()
     updated = load_tools_values()
     print(menu.format(updated))
     option = tools.read_input()
