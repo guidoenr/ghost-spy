@@ -25,5 +25,8 @@ def config_switch_key(section, key):
     config_save()
     config_load()
 
+def config_set(section, key, value):
+    config.set(section, key, value)
+
 def config_get_boolean(section, key):
     return config[section].getboolean(key)

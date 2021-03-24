@@ -1,12 +1,16 @@
 import menu_email
 import menu_tools
+import menu_frecuency
 from common import tools
+from resources import constant, help_menu
 
-menu = """\033[92m                                  
+menu = """\033[92m[main_menu]     
+                             
  ___ (___  ___  ___ (___      ___  ___      
 |   )|   )|   )|___ |    ___  |___ |   )\   )
 |__/ |  / |__/  __/ |__        __/ |__/  \_/ 
 __/                                |      / 
+
 @author: guidoenr
 @github : github.com/guidoenr/ghost-spy
 @version : 1.0.0
@@ -22,12 +26,6 @@ options:
 """
 
 valid_options = [0, 1, 2, 3, 4]
-TOOLS = 1
-EMAIL = 2
-FRECUENCY = 3
-HELP = 4
-QUIT = 0
-
 
 def show_menu():
     tools.clean_terminal()
@@ -35,13 +33,14 @@ def show_menu():
     option = tools.read_input()
     while not valid_options.__contains__(option):
         tools.print_error()
-    if option == QUIT:
+        option = tools.read_input()
+    if option == constant.const.QUIT:
         exit()
-    if option == TOOLS:
+    if option == constant.const.TOOLS:
         menu_tools.show_menu()
-    if option == EMAIL:
+    if option == constant.const.EMAIL:
         menu_email.show_menu()
-    if option == FRECUENCY:
+    if option == constant.const.FRECUENCY:
         menu_frecuency.show_menu()
-    if option == HELP:
-        pass #TODO
+    if option == constant.const.HELP:
+        help_menu.show_menu()

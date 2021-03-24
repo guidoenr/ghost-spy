@@ -14,7 +14,7 @@ class bcolors:
     CBOLD = '\33[1m'
     CITALIC = '\33[3m'
     CURL = '\33[4m'
-    CBLINK = '\33[5m'
+    CBLINK = '\33[5m' #---> dashed print
     CBLINK2 = '\33[6m'
     CSELECTED = '\33[7m'
     CBLACK = '\33[30m'
@@ -57,3 +57,6 @@ def print_error():
 
 def clean_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def print_bad_number():
+    print_red("[ERROR]: the minutes specified are not allowed, please try one in [1 - 120]")
