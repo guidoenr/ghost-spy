@@ -1,14 +1,17 @@
 import os
 import sys
 
-MENUU = os.getcwd() + '/menu'
+MENU = os.getcwd() + '/menu'
 CONFIGURATION = os.getcwd() + '/configuration'
 COMMON = os.getcwd() + '/common'
 RESOURCES = os.getcwd() + '/resources'
-sys.path.append(MENUU)
+MODULES = os.getcwd() + '/modules'
+
+sys.path.append(MENU)
 sys.path.append(CONFIGURATION)
 sys.path.append(COMMON)
 sys.path.append(RESOURCES)
+sys.path.append(MODULES)
 
 from menu import main_menu
 
