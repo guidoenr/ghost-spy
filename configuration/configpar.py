@@ -3,6 +3,7 @@ import configparser, resources.paths as paths
 config = configparser.ConfigParser()
 configpath = paths.CONFIG_PATH
 
+
 def config_load():
     config.read(configpath)
 
@@ -15,6 +16,7 @@ def config_save():
     with open(configpath, 'w') as configfile:
         config.write(configfile)
 
+
 def config_switch_key(section, key):
     case = ''
     if config.get(section, key) == 'enabled':
@@ -25,8 +27,10 @@ def config_switch_key(section, key):
     config_save()
     config_load()
 
+
 def config_set(section, key, value):
     config.set(section, key, value)
+
 
 def config_get_boolean(section, key):
     return config[section].getboolean(key)
