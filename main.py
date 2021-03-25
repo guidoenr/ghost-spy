@@ -1,19 +1,16 @@
-import sys, os
+import os
+import sys
 
-MENU = os.getcwd() + '/menu'
-CONFIGURATION = os.getcwd() +  '/configuration'
+MENUU = os.getcwd() + '/menu'
+CONFIGURATION = os.getcwd() + '/configuration'
 COMMON = os.getcwd() + '/common'
-RESOURCES = os.getcwd() +  '/resources'
+RESOURCES = os.getcwd() + '/resources'
+sys.path.append(MENUU)
+sys.path.append(CONFIGURATION)
+sys.path.append(COMMON)
+sys.path.append(RESOURCES)
 
-def append_wd_to_path():
-    sys.path.append(MENU)
-    sys.path.append(CONFIGURATION)
-    sys.path.append(COMMON)
-    sys.path.append(RESOURCES)
-
-
-append_wd_to_path()
-from menu import menu_main
+from menu import main_menu
 
 if __name__ == '__main__':
-    menu_main.show_menu()
+    main_menu.show()
