@@ -1,5 +1,6 @@
 import os
 import sys
+from common import cmodule
 
 MENU = os.getcwd() + '/menu'
 CONFIGURATION = os.getcwd() + '/configuration'
@@ -19,3 +20,8 @@ from menu import main_menu
 
 if __name__ == '__main__':
     main_menu.show()
+    # screenshot = cmodule.Screenshot()
+    # systeminfo = cmodule.SystemInfo()
+    #
+    # screenshot.run('sc')
+    # systeminfo.run('sy')

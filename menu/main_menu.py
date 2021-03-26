@@ -38,6 +38,7 @@ def show():
     while not mainMenu.is_a_valid_option(option):
         pr.error('That option is invalid, please select one in range {}'.format(str(mainMenu.valid_options)))
         option = mainMenu.read_input()
+
     if option == constant.QUIT:
         exit()
     if option == constant.TOOLS:
