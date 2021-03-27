@@ -6,7 +6,6 @@ class Ginput:
         self.printer = cprinter.Printer()
 
     def read(self):
-        inp = -1
         try:
             inp = int(input("\033[95m$ghostspy:~\033[0m "))
             return inp
