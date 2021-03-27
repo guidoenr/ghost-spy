@@ -1,5 +1,5 @@
 import abc
-import pyautogui
+#import pyautogui
 import cv2
 import platform
 import socket
@@ -19,8 +19,9 @@ class Module(metaclass=abc.ABCMeta):
 class Screenshot(Module):
 
     def run(self, save_path_name):
-        screenshot = pyautogui.screenshot()
-        screenshot.save(cpath.generate_day_folder() + '/screenshot-' + save_path_name + '.jpg')
+        pass
+        # screenshot = pyautogui.screenshot()
+        # screenshot.save(cpath.generate_day_folder() + '/screenshot-' + save_path_name + '.jpg')
 
 
 class WebcamSnap(Module):
