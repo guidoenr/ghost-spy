@@ -1,4 +1,4 @@
-FROM guidoenr4/ubuntu-gostpy
+FROM guidoenr4/ubuntu-ghostpy
 
 WORKDIR /root/home/workspace/ghost-spy/
 
