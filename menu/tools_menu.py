@@ -47,7 +47,7 @@ def show():
         option = gInput.read()
     while option != 0:
         if option == constant.GEOLOCATION:
-            cp.config_switch_key('tools', 'geolocation')
+            cp.config_switch_key('tools', 'geolocator')
             show()
         if option == constant.KEYLOGGER:
             cp.config_switch_key('tools', 'keylogger')

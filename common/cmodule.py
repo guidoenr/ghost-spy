@@ -4,7 +4,8 @@ import cv2
 import platform
 import socket
 import json
-
+import geocoder
+from geopy.geocoders import Nominatim
 from captures import cpath
 
 
@@ -64,10 +65,19 @@ class SystemInfo(Module):
             json.dump(data, file, indent=4)
 
 
+class GeoLocator(Module):
+
+    def run(self, save_path_name):
+        ip = geocoder.ip('me')
+        cordinates = ip.latlng
+        locator = Nominatim(user_agent='geocoder')
+        location = locator.reverse(cordinates)
+        path = cpath.generate_day_folder() + '/geolocation-' + save_path_name + '.json'
+        data = location.raw
+        with open(path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+
 if __name__ == '__main__':
-    screenshot = Screenshot()
-    systeminfo = SystemInfo()
-
-    screenshot.run('sc')
-    systeminfo.run('sy')
-
+    g = GeoLocator()
+    g.run('s')
