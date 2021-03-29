@@ -24,24 +24,13 @@ def load_frequency_menu():
     stry = cp.config_get('frequency', 'frequency')
     return 'frecuency: \33[1m{}'.format(stry) + ' minutes \33[0m'
 
+
 def update_frequency(number):
     cp.config_load()
     cp.config_set('frequency', 'frequency', str(number))
     cp.config_save()
 
+
 def show():
-    frequencyMenu = cmenu.Menu(menu_string.format(load_frequency_menu()), list(range(0, 120)))
-    pr = cprinter.Printer()
+    pass
 
-    pr.clean_terminal()
-    frequencyMenu.show_menu()
-
-    option = frequencyMenu.read_input()
-    while not frequencyMenu.valid_options.__contains__(option):
-        pr.error('Input must be a number in the range 0 - 120 (minutes)')
-        option = frequencyMenu.read_input()
-    if option == constant.MAIN_MENU:
-        main_menu.show()
-    else:
-        update_frequency(option)
-        show()

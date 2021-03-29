@@ -1,11 +1,11 @@
 import email_menu
 import frequency_menu
 import tools_menu
-from common import cmenu, cprinter
-from resources import constant
-from menu import help_menu
+import status_menu
+import help_menu
+from common import cmenu
 
-menu_string = """[main_menu]\033[92m     
+menu_str = """[main_menu]\033[92m     
                              
  ___ (___  ___  ___ (___      ___  ___      
 |   )|   )|   )|___ |    ___  |___ |   )\   )
@@ -21,35 +21,28 @@ options:
 
     \33[32m[1]\033[0m enable/disable tools
     \33[32m[2]\033[0m information delivery strategy
-    \33[32m[3]\033[0m ghost-spy frecuency
+    \33[32m[3]\033[0m delivery frecuency
     \33[32m[4]\033[0m status
     
-    \33[32m[5]\033[0m show help
-    \33[32m[0]\033[0m quit
+    \33[36m[5]\033[0m show help
+    \33[36m[q]\033[0m quit
 """
 
 
 def show():
-    pr = cprinter.Printer()
-    mainMenu = cmenu.Menu(menu_string, [0, 1, 2, 3, 4])
+    main_menu = cmenu.Menu(menu_str)
+    switcher = {
+        '1': tools_menu.show,
+        '2': email_menu.show,
+        '3': frequency_menu.show,
+        '4': status_menu.show,
+        '5': help_menu.show,
+        'q': main_menu.quit
+    }
 
-    pr.clean_terminal()
-    mainMenu.show_menu()
-    option = mainMenu.read_input()
+    main_menu.set_switcher(switcher)
+    main_menu.clean_terminal()
 
-    if option == constant.QUIT:
-        print('Goodbye, boss')
-        exit()
-
-    while not mainMenu.is_a_valid_option(option):
-        pr.error('That option is invalid, please select one in range {}'.format(str(mainMenu.valid_options)))
-        option = mainMenu.read_input()
-
-    if option == constant.TOOLS:
-        tools_menu.show()
-    if option == constant.EMAIL:
-        email_menu.show_menu()
-    if option == constant.FRECUENCY:
-        frequency_menu.show()
-    if option == constant.HELP:
-        help_menu.show()
+    main_menu.show_menu()
+    option = main_menu.read_input()
+    main_menu.switch(option)

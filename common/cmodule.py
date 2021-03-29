@@ -36,7 +36,8 @@ class WebcamSnap(Module):
             cv2.imwrite(cpath.generate_day_folder() + '/webcam_snap-' + save_path_name + '.jpg', img=frame)
             webcam.release()
 
-    def search_camera_id(self):
+    @staticmethod
+    def search_camera_id():
         cam_id = 0
         webcam = cv2.VideoCapture(cam_id)
         for i in range(0, 10):
@@ -78,8 +79,3 @@ class GeoLocator(Module):
         data = location.raw
         with open(path, 'w') as file:
             json.dump(data, file, indent=4)
-
-
-if __name__ == '__main__':
-    g = GeoLocator()
-    g.run('s')
