@@ -16,8 +16,9 @@ __/                                |      /
 @github : github.com/guidoenr/ghost-spy
 @version : 1.0.0
 \033[0m
----------------------------------------
+
 options:
+
     \33[32m[1]\033[0m enable/disable tools
     \33[32m[2]\033[0m information delivery strategy
     \33[32m[3]\033[0m ghost-spy frecuency
@@ -36,12 +37,14 @@ def show():
     mainMenu.show_menu()
     option = mainMenu.read_input()
 
+    if option == constant.QUIT:
+        print('Goodbye, boss')
+        exit()
+
     while not mainMenu.is_a_valid_option(option):
         pr.error('That option is invalid, please select one in range {}'.format(str(mainMenu.valid_options)))
         option = mainMenu.read_input()
 
-    if option == constant.QUIT:
-        exit()
     if option == constant.TOOLS:
         tools_menu.show()
     if option == constant.EMAIL:

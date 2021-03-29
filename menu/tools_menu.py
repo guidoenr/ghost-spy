@@ -1,10 +1,10 @@
 from configuration import configpar as cp
-from common import cprinter
+from common import cprinter, cmenu
 import main_menu
 from resources import constant
 from common import cginput
 
-menu ="""\033[92m[tools_menu]\033[0m
+menu_string = """\033[92m[tools_menu]\033[0m
 modules running:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 {}~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,7 +19,7 @@ def load_tools_values():
     i = 1
     for tool_key in cp.config['tools']:
         strings = strings + format_tool(tool_key, '[{}] '.format(i)) + ' \n'
-        i+=1
+        i += 1
     return strings
 
 def format_tool(tool_key, num):
@@ -35,16 +35,16 @@ def format_tool(tool_key, num):
 def show():
     pr = cprinter.Printer()
     updated = load_tools_values()
-    gInput = cginput.Ginput([0, 1, 2, 3, 4, 5])
+    toolsMenu = cmenu.Menu(menu_string.format(load_tools_values()), [0, 1, 2, 3, 4, 5])
 
     pr.clean_terminal()
-    print(menu.format(updated))
+    toolsMenu.show_menu()
+    option = toolsMenu.read_input()
 
-    option = gInput.read()
 
-    while not gInput.valid_options.__contains__(option):
+    while not toolsMenu.is_a_valid_option(option):
         pr.error("That module doesn't exist")
-        option = gInput.read()
+        option = toolsMenu.read_input()
     while option != 0:
         if option == constant.GEOLOCATION:
             cp.config_switch_key('tools', 'geolocator')
@@ -61,6 +61,7 @@ def show():
         if option == constant.WEBCAM:
             cp.config_switch_key('tools', 'webcam')
             show()
-        if option == constant.MAIN_MENU:
-            break
-    main_menu.show()
+    if option == constant.MAIN_MENU:
+        main_menu.show()
+        exit()
+
