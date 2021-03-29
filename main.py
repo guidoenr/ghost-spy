@@ -15,7 +15,7 @@ sys.path.append(RESOURCES)
 sys.path.append(MODULES)
 sys.path.append(CAPTURES)
 
-from menu import main_menu, login_menu
+from menu import main_menu
 
 if __name__ == '__main__':
-    login_menu.show()
+    main_menu.show()
