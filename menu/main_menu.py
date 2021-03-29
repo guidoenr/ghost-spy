@@ -21,8 +21,9 @@ options:
     \33[32m[1]\033[0m enable/disable tools
     \33[32m[2]\033[0m information delivery strategy
     \33[32m[3]\033[0m ghost-spy frecuency
+    \33[32m[4]\033[0m status
     
-    \33[32m[4]\033[0m show help
+    \33[32m[5]\033[0m show help
     \33[32m[0]\033[0m quit
 """
 
