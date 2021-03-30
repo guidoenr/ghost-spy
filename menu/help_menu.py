@@ -1,6 +1,6 @@
 from common import cprinter, cmenu
 from menu import main_menu
-from resources import constant
+from resources import constants
 
 
 menu_string = """ghost-py was developed by @guidoenr 
@@ -18,21 +18,19 @@ __/                                |      /
 version: 1.1.0
 mark: 1
 
-[0] back to main menu
+[q] back to main menu
 
 """
 
+
 def show():
-    pr = cprinter.Printer()
-    helpMenu = cmenu.Menu(menu_string, [0])
+    help_menu = cmenu.Menu(menu_string)
 
-    pr.clean_terminal()
-    helpMenu.show_menu()
-
-    option = helpMenu.read_input()
-
-    while not helpMenu.is_a_valid_option(option):
-        pr.warning('Press 0 to back to the main menu')
-        option = helpMenu.read_input()
-    if option == constant.MAIN_MENU:
-        main_menu.show()
+    help_menu.clean_terminal()
+    help_menu.show_menu()
+    switcher = {
+        'q': main_menu.show
+    }
+    help_menu.set_switcher(switcher)
+    option = help_menu.read_input()
+    help_menu.switch(option)

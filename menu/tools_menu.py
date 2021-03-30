@@ -52,5 +52,6 @@ def show():
         tools_menu.set_menu(menu_str.format(load_tools_values()))
         tools_menu.show_menu()
         option = tools_menu.read_input()
+    main_menu.show()
 
 

@@ -24,7 +24,6 @@ class Menu:
     def show_menu(self):
         print(self.menu)
 
-
     def read_input(self):
         return input("\33[92mghost@spy:~$\033[0m ")
 
@@ -35,3 +34,13 @@ class Menu:
     def quit():
         print('\33[36mghost@spy:~$\033[0m \33[6mgoodbye, boss\033[0m')
         exit()
+
+
+class FreqMenu(Menu):
+
+    def read_freq(self):
+        option = int(self.read_input())
+        while 0 > option > 180:
+            self.printer.error('Invalid input, frequency must be in the range [1-180] (minutes)')
+            option = int(self.read_input())
+        return option

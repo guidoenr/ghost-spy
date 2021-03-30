@@ -24,7 +24,7 @@ options:
     \33[32m[3]\033[0m delivery frecuency
     \33[32m[4]\033[0m status
     
-    \33[36m[5]\033[0m show help
+    \33[36m[help]\033[0m show help
     \33[36m[q]\033[0m quit
 """
 
@@ -36,7 +36,7 @@ def show():
         '2': email_menu.show,
         '3': frequency_menu.show,
         '4': status_menu.show,
-        '5': help_menu.show,
+        'help': help_menu.show,
         'q': main_menu.quit
     }
 

@@ -1,5 +1,5 @@
 import os
-from resources import constant
+from resources import constants
 
 
 class Printer:
@@ -8,13 +8,13 @@ class Printer:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def format(self, text):
-        print(text + constant.ENDC)
+        print(text + constants.ENDC)
 
     def warning(self, text):
-        self.format(constant.WARNING + "[WARNING]: " + text)
+        self.format(constants.WARNING + "[WARNING]: " + text)
 
     def error(self, text):
-        self.format(constant.FAIL + "[ERROR]: " + text)
+        self.format(constants.FAIL + "[ERROR]: " + text)
 
     def info(self, text):
-        self.format(constant.OKBLUE + "[INFO]: " + text)
+        self.format(constants.OKBLUE + "[INFO]: " + text)
