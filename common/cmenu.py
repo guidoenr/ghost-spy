@@ -38,9 +38,21 @@ class Menu:
 
 class FreqMenu(Menu):
 
-    def read_freq(self):
-        option = int(self.read_input())
-        while 0 > option > 180:
-            self.printer.error('Invalid input, frequency must be in the range [1-180] (minutes)')
-            option = int(self.read_input())
-        return option
+    def load_frequency_menu(self, config):
+        config.config_load()
+        freq = config.config_get('frequency', 'frequency')
+        self.set_menu(self.menu.format('frequency: \33[1m{}'.format(freq) + ' minutes \33[0m'))
+
+    @staticmethod
+    def update_frequency(number, config):
+        config.config_load()
+        config.config_set('frequency', 'frequency', str(number))
+        config.config_save()
+
+    def switch(self, option):
+        try:
+            int(option)
+        except ValueError:
+            self.printer.error('Frequency must be a integer')
+            new_option = self.read_input()
+            self.switch(new_option)
