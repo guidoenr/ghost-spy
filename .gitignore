@@ -1,5 +1,2 @@
-common/__pycache__
-.idea
-menu/__pycache__
-configuration/__pycache__
-resources/__pycache__
+/__pycache__
+*/__pycache__*
